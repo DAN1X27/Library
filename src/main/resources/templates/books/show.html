@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info about book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .book-info {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button{
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .delete-button:hover{
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="book-info">
+    <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"/>
+
+    <div th:if="${owner}">
+        <span>The book is now at: </span>
+        <span th:text="${owner.getName()}">Person Name</span>
+        <form th:method="PATCH" th:action="@{/books/unlock/{id}(id=${book.getId()})}">
+            <input type="submit" class="button" value="Release the book">
+        </form>
+    </div>
+
+    <div th:if="${people}">
+        <span>This book is now available. Who should I assign it to?</span>
+        <form th:method="PATCH" th:action="@{/books/lock/{bookId}(bookId=${book.getId()})}">
+            <label for="person">Select person:</label>
+            <select th:object="${person}" th:field="*{id}" id="person">
+                <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+            </select>
+            <input type="submit" class="button" value="Assign">
+        </form>
+    </div>
+
+    <a class="button" href="/books">To the list of books</a>
+    <br/>
+
+    <a class="button" th:href="@{/books/{id}/edit(id=${book.getId()})}" th:text="'Edit'"></a>
+    <br/><br/>
+
+    <a class="delete-button" th:href="@{/books/deleteAccept/{id} (id = ${book.getId()})}"
+       th:text="'Delete book'"/>
+</div>
+
+</body>
+</html>

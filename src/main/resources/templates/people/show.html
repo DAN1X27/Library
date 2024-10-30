@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info about Person</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .person-info {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button{
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .delete-button:hover{
+            background-color: red;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="person-info">
+    <p th:text="${'ID: ' + person.getId()}"/>
+    <p th:text="${'NAME: ' + person.getName()}"/>
+    <p th:text="${'YEAR OF BIRTH: ' + person.getYear()}"/>
+
+    <hr/>
+
+    <div th:if="${!books.isEmpty()}">
+        <b>Man's book list:</b>
+        <table th:each="book : ${books}">
+            <tr>
+                <td>
+                    <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+                          th:style="${book.isExpired()} ? 'color: red' : 'color: black'"></span>
+                    <b th:if="${book.isExpired()}" style="color: red">(The deadline has expired! Return the book)</b>
+                    <b th:unless="${book.isExpired()}" th:text="${'Deadline expires' + book.getDateBeforeExpired()}"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:if="${books.isEmpty()}">
+        <p>The person doesn't have any books yet.</p>
+    </div>
+
+    <hr/>
+    <a class="button" th:href="@{/people/{id}/edit(id=${person.getId()})}" th:text="'EDIT'"></a>
+
+    <a class="button" href="/people">To the list of people</a>
+
+    <a class="delete-button" th:href="@{/people/deleteAccept/{id} (id = ${person.getId()})}"
+                            th:text="Delete"/>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .person-list {
+            text-align: center;
+            font-size: 2em;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.2em;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2em;
+            margin: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="person-list" th:if="${people}">
+    <p>List of people found: </p>
+    <div th:each="person : ${people}">
+        <a style="color: black" th:href="@{/people/{id} (id = ${person.getId()})}"
+           th:text="${person.getName() + ', ' + person.getYear()}"/>
+    </div>
+    <hr/>
+    <a class="button" href="/people">To the list of people</a>
+</div>
+
+<div class="link-container" th:if="${notFound}">
+    <p>No person with that name was found</p>
+    <hr/>
+    <a class="button" href="/people">To the list of people</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .book-list {
+            text-align: center;
+            font-size: 2em;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.2em;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2em;
+            margin: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="book-list" th:if="${books}">
+    <p>List of books found: </p>
+    <div th:each="book : ${books}">
+        <a style="color: black" th:href="@{/books/{id} (id = ${book.getId()})}"
+           th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"/>
+    </div>
+    <hr/>
+    <a class="button" href="/books">To the list of books</a>
+</div>
+
+<div class="link-container" th:if="${notFound}">
+    <p>No book found</p>
+    <hr/>
+    <a class="button" href="/books">To the list of books</a>
+</div>
+
+</body>
+</html>

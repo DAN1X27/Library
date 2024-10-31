@@ -1,3 +1,3 @@
-*.java linguist-language=Java
+*.es linguist-language=JAVA
 /mvnw text eol=lf
 *.cmd text eol=crlf

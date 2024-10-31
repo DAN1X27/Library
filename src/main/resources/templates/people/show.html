@@ -70,7 +70,7 @@
                     <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
                           th:style="${book.isExpired()} ? 'color: red' : 'color: black'"></span>
                     <b th:if="${book.isExpired()}" style="color: red">(The deadline has expired! Return the book)</b>
-                    <b th:unless="${book.isExpired()}" th:text="${'Deadline expires' + book.getDateBeforeExpired()}"/>
+                    <b th:unless="${book.isExpired()}" th:text="${'Deadline expires: ' + book.getDateBeforeExpired()}"/>
                 </td>
             </tr>
         </table>

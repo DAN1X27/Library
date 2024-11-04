@@ -7,5 +7,8 @@ create table Book(
    id int generated always as identity primary key,
    title varchar not null,
    year int,
+   String author not null,
+   date_of_get_book date not null,
+   date_before_expired date nit null,
    person_id int references person(id)
    

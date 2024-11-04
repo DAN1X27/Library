@@ -2,4 +2,10 @@ create table Person(
    id int generated always as identity primary key,
    name varchar unique not null,
    year int,
+
+create table Book(
+   id int generated always as identity primary key,
+   title varchar not null,
+   year int,
+   person_id int references person(id)
    
